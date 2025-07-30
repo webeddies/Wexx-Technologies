@@ -143,6 +143,21 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose }) => {
           </div>
 
           <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Service Interested In</label>
+            <select
+              name="service"
+              required
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">-- Select a Service --</option>
+              <option>Cloud Infrastructure & Security</option>
+              <option>Application Services</option>
+              <option>Technology Advisory</option>
+              <option>Custom Project</option>
+            </select>
+          </div>
+
+          <div>
             <label className="block font-medium text-gray-700 mb-1">
               Brief Description
             </label>
