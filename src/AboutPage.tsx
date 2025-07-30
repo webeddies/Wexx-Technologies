@@ -35,9 +35,11 @@ const AboutPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.8, delay: 0.5 }}
         >
-          <h1 className="text-white text-3xl sm:text-4xl font-bold text-center">
-            About WEXX TECHNOLOGIES
+          <h1 className="text-3xl sm:text-4xl font-bold text-center">
+            <span className="text-teal-400">About</span>{' '}
+            <span className="text-white">WEXX TECHNOLOGIES</span>
           </h1>
+
         </motion.div>
       </motion.div>
 
@@ -60,13 +62,13 @@ const AboutPage = () => {
 
             `<strong>WEXX TECHNOLOGIES</strong> is led by seasoned, high-level professionals with in-depth knowledge of information technology; both locally and globally. Our valued clients are supported by experienced experts throughout every phase of an engagement.`,
 
-            `We offer a fresh, distinctive approach to delivering multi-disciplinary and end-to-end technology services. Today and in the future, broader and more sophisticated skills are required to compete and meet clients’ diverse and evolving needs. The only constants in information technology are change and the ongoing need to significantly reduce solution costs while enhancing agility. That’s what <strong>WEXX TECHNOLOGIES</strong> does best—helping organizations and individuals manage change, increase flexibility, and minimize solution costs.`,
+            `We offer a fresh, distinctive approach to delivering multi-disciplinary and end-to-end technology services. Today and in the future, broader and more sophisticated skills are required to compete and meet clients’ diverse and evolving needs. The only constants in information technology are change and the ongoing need to significantly reduce solution costs while enhancing agility. That’s what <strong>WEXX TECHNOLOGIES</strong> does best; helping organizations and individuals manage change, increase flexibility, and minimize solution costs.`,
 
             `Our success depends on our clients’ success. That’s why <strong>WEXX TECHNOLOGIES</strong> continues to grow as a trusted force, even when competing against other firms. We pride ourselves on offering the most comprehensive and up-to-date customized technology services to help our clients maximize the value of their systems and investments.`,
 
             `We partner with our clients to envision, build, and deliver meaningful technical solutions. Our experience, knowledge, and ingenuity enable us to apply our services across a wide variety of projects.`,
 
-            `These in-house service categories support the implementation of both short- and long-term business strategies that align with our clients’ objectives. By coordinating multidisciplinary expertise and working collaboratively, <strong>WEXX TECHNOLOGIES</strong> helps clients optimize their resources, and their valuable time.`,
+            `These in-house service categories support the implementation of both short and long-term business strategies that align with our clients’ objectives. By coordinating multidisciplinary expertise and working collaboratively, <strong>WEXX TECHNOLOGIES</strong> helps clients optimize their resources, and their valuable time.`,
 
             `At <strong>WEXX TECHNOLOGIES</strong>, we don’t just meet expectations, we consistently exceed them.`,
           ].map((text, index) => (

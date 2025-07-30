@@ -38,6 +38,11 @@ const HomePage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [formError, setFormError] = useState(false);
+
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -160,14 +165,26 @@ const HomePage = () => {
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
-                  className={`capitalize font-medium transition-colors duration-200 ${activeSection === item
+                  className={`capitalize font-medium flex items-center gap-1 transition-all duration-300 ${activeSection === item
                     ? 'text-blue-600 border-b-2 border-blue-600'
                     : 'text-gray-700 hover:text-blue-600'
                     }`}
                 >
-                  {item === 'home' ? 'Home' : item.replace('-', ' ')}
+                  {item === 'contact' ? (
+                    <>
+                      <motion.span
+                        className="inline-block"
+                        animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
+                        transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                      >
+                        <Phone className="w-4 h-4 text-blue-500" />
+                      </motion.span>
+                      Contact
+                    </>
+                  ) : item === 'home' ? 'Home' : item.replace('-', ' ')}
                 </button>
               ))}
+
             </nav>
 
             {/* Mobile menu button */}
@@ -451,7 +468,16 @@ const HomePage = () => {
                     <Phone className="w-6 h-6 text-blue-400" />
                     <div>
                       <p className="font-semibold">Phone Numbers</p>
-                      <p className="text-gray-400">0248164701 • 0209008393</p>
+                      <div className="text-gray-400 space-x-2">
+                        <a href="tel:+233248164701" className="hover:text-white transition-colors duration-300">
+                          0248164701
+                        </a>
+                        <span>•</span>
+                        <a href="tel:+233209008393" className="hover:text-white transition-colors duration-300">
+                          0209008393
+                        </a>
+                      </div>
+
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
@@ -490,11 +516,19 @@ const HomePage = () => {
             {/* Contact Form */}
             <div className="bg-gray-800 rounded-2xl p-8">
               <h3 className="text-2xl font-bold mb-6">Send us a Message</h3>
-              <form className="space-y-6">
+              <form
+                action="https://formspree.io/f/xanbbyyw"
+                method="POST"
+                className="space-y-6"
+              >
+                <input type="hidden" name="_next" value="https://wexxtechnologies.netlify.app/thank-you" />
+
+
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2">Full Name</label>
                   <input
                     type="text"
+                    name="name" 
                     id="name"
                     className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="Your full name"
@@ -504,6 +538,7 @@ const HomePage = () => {
                   <label htmlFor="email" className="block text-sm font-medium mb-2">Email Address</label>
                   <input
                     type="email"
+                    name="email" 
                     id="email"
                     className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="your.email@example.com"
@@ -513,6 +548,7 @@ const HomePage = () => {
                   <label htmlFor="number" className="block text-sm font-medium mb-2">Phone Number</label>
                   <input
                     type="number"
+                    name="phone" 
                     id="number"
                     className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="0241234567"
@@ -521,6 +557,7 @@ const HomePage = () => {
                 <div>
                   <label htmlFor="id number" className="block text-sm font-medium mb-2">ID Number</label>
                   <input
+                    name="id" 
                     id="id number"
                     className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="GHA-CARD/ DRIVER'S LICENSE/ PASSPORT No./ VOTER'S ID"
@@ -529,6 +566,7 @@ const HomePage = () => {
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
                   <textarea
+                    name="message" 
                     id="message"
                     rows={5}
                     className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
@@ -537,11 +575,46 @@ const HomePage = () => {
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                  className={`w-full flex justify-center items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${isSending ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                  disabled={isSending}
                 >
-                  Send Message
+                  {isSending ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    'Send Message'
+                  )}
                 </button>
+
               </form>
+              {formSubmitted && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-green-400 mt-4 text-center font-medium"
+                >
+                  ✅ Message sent successfully. We'll get back to you soon!
+                </motion.div>
+              )}
+
+              {formError && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-red-400 mt-4 text-center font-medium"
+                >
+                  ⚠️ Please fill in all the fields before submitting.
+                </motion.div>
+              )}
+
             </div>
           </div>
         </div>
@@ -589,12 +662,30 @@ const HomePage = () => {
 
             {/* Contact Info */}
             <div>
-              <h4 className="font-semibold mb-4">Contact</h4>
+              <h4 className="font-semibold mb-4 flex items-center gap-2">
+                <motion.span
+                  animate={{ rotate: [0, -15, 15, -15, 15, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+                >
+                  <Phone className="w-4 h-4 text-teal-400" />
+                </motion.span>
+                Contact
+              </h4>
+
               <ul className="space-y-2 text-gray-400">
-                <li>0248164701</li>
-                <li>0209008393</li>
+                <li>
+                  <a href="tel:+233248164701" className="hover:text-white transition-colors duration-300">
+                    0248164701
+                  </a>
+                </li>
+                <li>
+                  <a href="tel:+233209008393" className="hover:text-white transition-colors duration-300">
+                    0209008393
+                  </a>
+                </li>
                 <li>Taifa, Accra</li>
               </ul>
+
             </div>
           </div>
 
