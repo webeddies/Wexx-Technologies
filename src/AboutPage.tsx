@@ -12,14 +12,14 @@ const AboutPage = () => {
       className="min-h-screen bg-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 2.2, ease: 'easeInOut' }}
+      transition={{ duration: 1.8, ease: 'easeInOut' }}
     >
       {/* 🔷 Top Banner Image with Animated Title */}
       <motion.div
         className="relative w-full h-56 sm:h-72 overflow-hidden"
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 2.2, ease: 'easeInOut' }}
+        transition={{ duration: 1.2, ease: 'easeInOut' }}
       >
         <img
           src="/images/about-banner.jpg"

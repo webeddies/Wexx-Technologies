@@ -4,6 +4,7 @@ import Preloader from './Preloader';
 import ScheduleModal from './ScheduleModal'; // adjust the path
 
 
+
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import {
@@ -165,38 +166,56 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <div className="text-2xl font-bold text-navy-900">
-                <span className="text-blue-600">WEXX</span> TECHNOLOGIES
-              </div>
+              <button
+                onClick={() => scrollToSection('home')}
+                className="text-3xl sm:text-4xl font-extrabold tracking-wide text-navy-900 focus:outline-none"
+              >
+                <span className="text-blue-600">WEXX</span>{' '}
+                <span className="text-base font-semibold text-gray-800">TECHNOLOGIES</span>
+              </button>
+
+
             </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex space-x-8">
-              {['home', 'about', 'services', 'industries', 'contact'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
-                  className={`capitalize font-medium flex items-center gap-1 transition-all duration-300 ${activeSection === item
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-700 hover:text-blue-600'
-                    }`}
-                >
-                  {item === 'contact' ? (
-                    <>
-                      <motion.span
-                        className="inline-block"
-                        animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
-                        transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                      >
-                        <Phone className="w-4 h-4 text-blue-500" />
-                      </motion.span>
-                      Contact
-                    </>
-                  ) : item === 'home' ? 'Home' : item.replace('-', ' ')}
-                </button>
-              ))}
+              {['home', 'about', 'services', 'industries', 'contact'].map((item) => {
+                const label =
+                  item === 'contact'
+                    ? 'Contact Us'
+                    : item.charAt(0).toUpperCase() + item.slice(1).replace('-', ' ');
 
+                return (
+                  <button
+                    key={item}
+                    onClick={() => scrollToSection(item)}
+                    className="relative group flex items-center gap-1 font-medium transition-all duration-300 text-gray-700 hover:text-blue-600"
+                  >
+                    {/* Hover dot */}
+                    <span className="absolute -left-4 w-2 h-2 rounded-full bg-blue-600 transform scale-50 opacity-0 -translate-x-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100"></span>
+
+                    {item === 'contact' ? (
+                      <span className="flex items-center gap-2">
+                        {label}
+                        <motion.span
+                          className="inline-block"
+                          animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
+                          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                        >
+                          <Phone className="w-6 h-6 text-blue-500" />
+                        </motion.span>
+                      </span>
+                    ) : (
+                      label
+                    )}
+                  </button>
+                );
+              })}
             </nav>
+
+
+
+
 
             {/* Mobile menu button */}
             <div className="lg:hidden">
@@ -233,102 +252,102 @@ const HomePage = () => {
         {/* Slideshow Background */}
         <div className="group relative h-screen">
           <Slider
-          dots={true}
-          infinite={true}
-          speed={1200}  // 1.2 seconds is smooth and classy
-          cssEase="ease-in-out"
-          slidesToShow={1}
-          slidesToScroll={1}
-          autoplay={true}                  // ✅ Autoplay is enabled
-          autoplaySpeed={5000}
-          pauseOnHover={false}
-          pauseOnFocus={false}
+            dots={true}
+            infinite={true}
+            speed={1200}  // 1.2 seconds is smooth and classy
+            cssEase="ease-in-out"
+            slidesToShow={1}
+            slidesToScroll={1}
+            autoplay={true}                  // ✅ Autoplay is enabled
+            autoplaySpeed={5000}
+            pauseOnHover={false}
+            pauseOnFocus={false}
 
-          nextArrow={<CustomNextArrow />}
-          prevArrow={<CustomPrevArrow />}
-          rtl={false}
-          beforeChange={(oldIndex, newIndex) => setCurrentSlide(newIndex)}
+            nextArrow={<CustomNextArrow />}
+            prevArrow={<CustomPrevArrow />}
+            rtl={false}
+            beforeChange={(oldIndex, newIndex) => setCurrentSlide(newIndex)}
 
-        >
-          {heroImages.map((slide, index) => (
-            <div key={index}>
-              <div className="h-screen relative">
-                <div
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${slide.image})` }}
-                >
-                  <div className="h-full w-full bg-black/60 flex items-center">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                      <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        {/* 🔁 Key added to trigger animations on each slide change */}
-                        <motion.div
-                          key={currentSlide === index ? `active-${index}` : `inactive-${index}`}
-                          initial={{ opacity: 0, y: 40 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.8 }}
-                          className="space-y-8"
-                        >
-                          <motion.h1
-                            className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
+          >
+            {heroImages.map((slide, index) => (
+              <div key={index}>
+                <div className="h-screen relative">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{ backgroundImage: `url(${slide.image})` }}
+                  >
+                    <div className="h-full w-full bg-black/60 flex items-center">
+                      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                        <div className="grid lg:grid-cols-2 gap-12 items-center">
+                          {/* 🔁 Key added to trigger animations on each slide change */}
+                          <motion.div
+                            key={currentSlide === index ? `active-${index}` : `inactive-${index}`}
                             initial={{ opacity: 0, y: 40 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
+                            transition={{ duration: 0.8 }}
+                            className="space-y-8"
                           >
-                            <span className="text-teal-400">{slide.title.split(' ')[0]}</span>{' '}
-                            {slide.title.split(' ').slice(1).join(' ')}
-                          </motion.h1>
-
-                          <motion.p
-                            className="text-xl sm:text-2xl text-gray-300 font-light"
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.4 }}
-                          >
-                            {slide.subtitle}
-                          </motion.p>
-
-                          <motion.p
-                            className="text-lg text-gray-300 leading-relaxed max-w-2xl"
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.6 }}
-                          >
-                            {slide.description}
-                          </motion.p>
-
-                          <div className="flex flex-col sm:flex-row gap-4">
-                            <motion.button
-                              onClick={() => setShowModal(true)} // Open modal
-                              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-                              initial={{ opacity: 0, x: -50 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ duration: 0.8, delay: 0.8 }}
+                            <motion.h1
+                              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
+                              initial={{ opacity: 0, y: 40 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.8, delay: 0.2 }}
                             >
-                              Schedule a Consultation
-                            </motion.button>
+                              <span className="text-teal-400">{slide.title.split(' ')[0]}</span>{' '}
+                              {slide.title.split(' ').slice(1).join(' ')}
+                            </motion.h1>
 
-
-                            <motion.button
-                              onClick={() => scrollToSection('services')}
-                              className="border-2 border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-gray-900 px-8 py-4 rounded-lg font-semibold transition-all duration-300"
-                              initial={{ opacity: 0, x: 50 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ duration: 0.8, delay: 1.0 }}
+                            <motion.p
+                              className="text-xl sm:text-2xl text-gray-300 font-light"
+                              initial={{ opacity: 0, y: 40 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.8, delay: 0.4 }}
                             >
-                              Explore Our Services
-                            </motion.button>
-                          </div>
-                        </motion.div>
+                              {slide.subtitle}
+                            </motion.p>
+
+                            <motion.p
+                              className="text-lg text-gray-300 leading-relaxed max-w-2xl"
+                              initial={{ opacity: 0, y: 40 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.8, delay: 0.6 }}
+                            >
+                              {slide.description}
+                            </motion.p>
+
+                            <div className="flex flex-col sm:flex-row gap-4">
+                              <motion.button
+                                onClick={() => setShowModal(true)} // Open modal
+                                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+                                initial={{ opacity: 0, x: -50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8, delay: 0.8 }}
+                              >
+                                Schedule a Consultation
+                              </motion.button>
+
+
+                              <motion.button
+                                onClick={() => scrollToSection('services')}
+                                className="border-2 border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-gray-900 px-8 py-4 rounded-lg font-semibold transition-all duration-300"
+                                initial={{ opacity: 0, x: 50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8, delay: 1.0 }}
+                              >
+                                Explore Our Services
+                              </motion.button>
+                            </div>
+                          </motion.div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
 
 
-        </Slider>
+          </Slider>
 
         </div>
 
@@ -345,7 +364,7 @@ const HomePage = () => {
 
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-gray-900">Our Mission</h3>
+              <h3 className="text-2xl font-bold text-gray-700 leading-relaxed font-rubik">Our Mission</h3>
               <p className="text-gray-700 leading-relaxed">
                 At WEXX TECHNOLOGIES, we are digital change-makers dedicated to designing future-state solutions that help businesses evolve with agility and impact. Based in Accra, Ghana, we serve enterprise clients across Africa and beyond with customized IT services, digital transformation consulting, and comprehensive cloud and application services.
               </p>
@@ -355,7 +374,7 @@ const HomePage = () => {
             </div>
 
             <div className="bg-gray-50 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Why choose us?</h3>
+              <h3 className="text-2xl font-bold text-gray-700 mb-2">Why choose us?</h3>
               <p className="text-gray-700 mb-6">
                 We provide technology-driven solutions with first-rate customer service to:
               </p>
@@ -364,7 +383,7 @@ const HomePage = () => {
                 <div className="flex items-start space-x-3">
                   <Trophy className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Innovation</h4>
+                    <h4 className="font-semibold text-gray-700">Innovation</h4>
                     <p className="text-gray-600">Deliver forward-thinking technologies that position your business for long-term success.</p>
                   </div>
                 </div>
@@ -372,7 +391,7 @@ const HomePage = () => {
                 <div className="flex items-start space-x-3">
                   <Users className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Collaboration</h4>
+                    <h4 className="font-semibold text-gray-700">Collaboration</h4>
                     <p className="text-gray-600">Work hand-in-hand with you to ensure shared goals and lasting impact.</p>
                   </div>
                 </div>
@@ -380,7 +399,7 @@ const HomePage = () => {
                 <div className="flex items-start space-x-3">
                   <Target className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Excellence</h4>
+                    <h4 className="font-semibold text-gray-700">Excellence</h4>
                     <p className="text-gray-600">Maintain a strong focus on quality to consistently exceed expectations.</p>
                   </div>
                 </div>
@@ -480,7 +499,7 @@ const HomePage = () => {
                   <div className="text-blue-600 mb-3 group-hover:scale-110 transition-transform duration-300">
                     {industry.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{industry.name}</h3>
+                  <h3 className="text-xl font-bold text-gray-700 mb-2">{industry.name}</h3>
                   <p className="text-gray-600 text-sm">{industry.description}</p>
                 </div>
               </div>
@@ -700,10 +719,12 @@ const HomePage = () => {
             <div className="lg:col-span-2">
               <button
                 onClick={() => scrollToSection('home')}
-                className="text-2xl font-bold mb-4 text-left focus:outline-none"
+                className="text-3xl sm:text-4xl font-extrabold tracking-wide mb-4 text-left focus:outline-none"
               >
-                <span className="text-blue-400">WEXX</span> TECHNOLOGIES
+                <span className="text-blue-400">WEXX</span>{' '}
+                <span className="text-base font-semibold text-gray-300">TECHNOLOGIES</span>
               </button>
+
               <p className="text-gray-400 mb-4 max-w-md">
                 Digital change-makers designing future-state solutions to help businesses evolve with agility and impact.
               </p>
@@ -733,15 +754,19 @@ const HomePage = () => {
 
             {/* Contact Info */}
             <div>
-              <h4 className="font-semibold mb-4 flex items-center gap-2">
+              <span className="capitalize font-medium transition-all duration-300 flex items-center gap-2">
+                Contact Us
                 <motion.span
-                  animate={{ rotate: [0, -15, 15, -15, 15, 0] }}
-                  transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+                  className="inline-block"
+                  animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
                 >
-                  <Phone className="w-4 h-4 text-teal-400" />
+                  <Phone className="w-6 h-6 text-blue-500" />
                 </motion.span>
-                Contact
-              </h4>
+              </span>
+
+
+
 
               <ul className="space-y-2 text-gray-400">
                 <li>
