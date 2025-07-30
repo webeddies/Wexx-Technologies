@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Preloader from './Preloader';
+import ScheduleModal from './ScheduleModal'; // adjust the path
 
 
 import { useNavigate } from 'react-router-dom';
@@ -54,6 +55,9 @@ const HomePage = () => {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [showModal, setShowModal] = useState(false);
+
 
 
 
@@ -227,7 +231,8 @@ const HomePage = () => {
       {/* Hero Section */}
       <section id="home" className="pt-16 min-h-screen relative text-white">
         {/* Slideshow Background */}
-        <Slider
+        <div className="group relative h-screen">
+          <Slider
           dots={true}
           infinite={true}
           speed={1200}  // 1.2 seconds is smooth and classy
@@ -293,7 +298,7 @@ const HomePage = () => {
 
                           <div className="flex flex-col sm:flex-row gap-4">
                             <motion.button
-                              onClick={() => scrollToSection('contact')}
+                              onClick={() => setShowModal(true)} // Open modal
                               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
                               initial={{ opacity: 0, x: -50 }}
                               animate={{ opacity: 1, x: 0 }}
@@ -301,6 +306,7 @@ const HomePage = () => {
                             >
                               Schedule a Consultation
                             </motion.button>
+
 
                             <motion.button
                               onClick={() => scrollToSection('services')}
@@ -324,6 +330,8 @@ const HomePage = () => {
 
         </Slider>
 
+        </div>
+
       </section>
 
 
@@ -332,7 +340,7 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">About WEXX TECHNOLOGIES</h2>
-            
+
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
@@ -769,6 +777,8 @@ const HomePage = () => {
       >
         <MessageCircle className="w-6 h-6" />
       </a>
+
+      <ScheduleModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </div>
   );
 };
