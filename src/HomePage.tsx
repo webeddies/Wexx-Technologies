@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Preloader from './Preloader';
 
 
 import { useNavigate } from 'react-router-dom';
@@ -52,6 +53,8 @@ const HomePage = () => {
   };
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
 
 
   const heroImages = [
@@ -80,7 +83,7 @@ const HomePage = () => {
     {
       category: "Cloud Infrastructure & Security Services",
       icon: <Cloud className="w-8 h-8" />,
-      color: "bg-blue-600",
+      color: "bg-teal-600",
       services: [
         "Digital Security",
         "Digital Workplace",
@@ -103,7 +106,7 @@ const HomePage = () => {
     {
       category: "Technology Advisory & Engagement",
       icon: <Target className="w-8 h-8" />,
-      color: "bg-indigo-600",
+      color: "bg-teal-600",
       services: [
         "Digital Transformation Consulting",
         "Data Analytics & Business Intelligence",
@@ -146,6 +149,10 @@ const HomePage = () => {
       image: "/images/industries/tech.jpg"
     }
   ];
+
+  if (isLoading) {
+    return <Preloader onFinish={() => setIsLoading(false)} />;
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -323,11 +330,9 @@ const HomePage = () => {
       {/* About Section */}
       <section id="about" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">About WEXX TECHNOLOGIES</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Leading digital transformation through innovative technology solutions and strategic consulting expertise.
-            </p>
+            
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
@@ -342,31 +347,38 @@ const HomePage = () => {
             </div>
 
             <div className="bg-gray-50 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Why Choose WEXX?</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Why choose us?</h3>
+              <p className="text-gray-700 mb-6">
+                We provide technology-driven solutions with first-rate customer service to:
+              </p>
+
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
                   <Trophy className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold text-gray-900">Innovation</h4>
-                    <p className="text-gray-600">Cutting-edge solutions that keep you ahead of the curve</p>
+                    <p className="text-gray-600">Deliver forward-thinking technologies that position your business for long-term success.</p>
                   </div>
                 </div>
+
                 <div className="flex items-start space-x-3">
                   <Users className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold text-gray-900">Collaboration</h4>
-                    <p className="text-gray-600">Partnership approach ensuring your success is our success</p>
+                    <p className="text-gray-600">Work hand-in-hand with you to ensure shared goals and lasting impact.</p>
                   </div>
                 </div>
+
                 <div className="flex items-start space-x-3">
                   <Target className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold text-gray-900">Excellence</h4>
-                    <p className="text-gray-600">Unwavering commitment to delivering exceptional results</p>
+                    <p className="text-gray-600">Maintain a strong focus on quality to consistently exceed expectations.</p>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
 
           <div className="text-center mt-12">
@@ -384,18 +396,41 @@ const HomePage = () => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Comprehensive technology solutions designed to accelerate your digital transformation journey.
+      <section
+        id="services"
+        className="py-20 relative bg-gray-900 text-white overflow-hidden"
+      >
+        {/* Background image (blurred or darkened for readability) */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+          style={{
+            backgroundImage: "url('/images/services-bg.jpg')",
+            backgroundAttachment: "fixed",
+          }}
+        ></div>
+
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <p className="text-[8px] sm:text-xs text-blue-400 tracking-[0.35em] uppercase font-semibold mb-2 relative inline-block leading-none">
+              WHAT WE DO
+              <span className="block w-6 h-[1.5px] bg-blue-400 mt-1 mx-auto"></span>
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3">Our Services</h2>
+            <p className="text-sm sm:text-base text-gray-300 max-w-xl mx-auto leading-relaxed">
+              We can understand and support all aspects of your IT systems. Our goal is to create innovative technology solutions that enable your business to be more agile and competitive.
             </p>
           </div>
 
+
+
+
           <div className="grid lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <div key={index} className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden">
+              <div
+                key={index}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
+              >
                 <div className={`${service.color} p-6 text-white`}>
                   <div className="flex items-center space-x-3 mb-4">
                     {service.icon}
@@ -418,13 +453,14 @@ const HomePage = () => {
         </div>
       </section>
 
+
       {/* Industries Section */}
       <section id="industries" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Industries We Serve</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Delivering specialized solutions across key business sectors with deep industry expertise.
+              Empowering businesses with customized solutions built on deep sector expertise.
             </p>
           </div>
 
@@ -517,18 +553,53 @@ const HomePage = () => {
             <div className="bg-gray-800 rounded-2xl p-8">
               <h3 className="text-2xl font-bold mb-6">Send us a Message</h3>
               <form
-                action="https://formspree.io/f/xanbbyyw"
-                method="POST"
+                onSubmit={async (e) => {
+                  e.preventDefault(); // prevent page refresh
+
+                  const name = (document.getElementById('name') as HTMLInputElement).value.trim();
+                  const email = (document.getElementById('email') as HTMLInputElement).value.trim();
+                  const phone = (document.getElementById('number') as HTMLInputElement).value.trim();
+
+                  const message = (document.getElementById('message') as HTMLTextAreaElement).value.trim();
+
+                  if (!name || !email || !phone || !message) {
+                    setFormError(true);
+                    return;
+                  }
+
+                  setFormError(false);
+                  setIsSending(true);
+
+                  try {
+                    const res = await fetch("https://formspree.io/f/xanbbyyw", {
+                      method: "POST",
+                      headers: { Accept: "application/json" },
+                      body: new FormData(e.target as HTMLFormElement),
+                    });
+
+                    if (res.ok) {
+                      setFormSubmitted(true);
+                      (e.target as HTMLFormElement).reset(); // Clear form fields
+                    } else {
+                      setFormError(true);
+                    }
+                  } catch (err) {
+                    setFormError(true);
+                  } finally {
+                    setIsSending(false);
+                  }
+                }}
                 className="space-y-6"
               >
-                <input type="hidden" name="_next" value="https://wexxtechnologies.netlify.app/thank-you" />
+
+
 
 
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2">Full Name</label>
                   <input
                     type="text"
-                    name="name" 
+                    name="name"
                     id="name"
                     className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="Your full name"
@@ -538,7 +609,7 @@ const HomePage = () => {
                   <label htmlFor="email" className="block text-sm font-medium mb-2">Email Address</label>
                   <input
                     type="email"
-                    name="email" 
+                    name="email"
                     id="email"
                     className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="your.email@example.com"
@@ -548,25 +619,17 @@ const HomePage = () => {
                   <label htmlFor="number" className="block text-sm font-medium mb-2">Phone Number</label>
                   <input
                     type="number"
-                    name="phone" 
+                    name="phone"
                     id="number"
                     className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="0241234567"
                   />
                 </div>
-                <div>
-                  <label htmlFor="id number" className="block text-sm font-medium mb-2">ID Number</label>
-                  <input
-                    name="id" 
-                    id="id number"
-                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                    placeholder="GHA-CARD/ DRIVER'S LICENSE/ PASSPORT No./ VOTER'S ID"
-                  />
-                </div>
+
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
                   <textarea
-                    name="message" 
+                    name="message"
                     id="message"
                     rows={5}
                     className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
@@ -698,7 +761,7 @@ const HomePage = () => {
 
       {/* WhatsApp Button */}
       <a
-        href="https://wa.me/233248164701"
+        href="https://wa.me/233249138201"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 z-50"
