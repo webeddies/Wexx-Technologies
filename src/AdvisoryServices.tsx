@@ -114,7 +114,7 @@ const AdvisoryServices = () => {
             transition={{ duration: 0.8 }}
             className="text-4xl md:text-5xl font-bold mb-4"
           >
-            <h1 className="text-2xl md:text-6xl font-bold mb-6">
+            <h1 className="text-3xl md:text-6xl font-bold mb-6">
               <span className="text-teal-400">Technology</span> Advisory & Engagement
               
             </h1>

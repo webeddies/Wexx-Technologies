@@ -60,7 +60,7 @@ const AboutPage = () => {
 
         <div className="relative text-white space-y-10 leading-loose text-lg max-w-5xl mx-auto z-10">
           {[
-            `<strong>WEXX TECHNOLOGIES</strong> is a global consulting services and systems provider operating in Ghana, delivering solutions through a unique blend of digital innovation and robust, industry-strength processes. With our commitment to helping clients design digital success, we craft future-state solutions for industry leaders and deliver innovative digital experiences that enable them to accelerate transformation and growth.`,
+            `<strong>WEXX TECHNOLOGIES</strong> is a consulting services and systems provider operating in Ghana, delivering solutions through a unique blend of digital innovation and robust, industry-strength processes. With our commitment to helping clients design digital success, we craft future-state solutions for industry leaders and deliver innovative digital experiences that enable them to accelerate transformation and growth.`,
 
             `Our goal is to empower enterprises, associates, and society at large to rise; fostering a more equitable world, future readiness, and sustainable value creation.`,
 
