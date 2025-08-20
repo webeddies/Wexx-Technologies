@@ -1,58 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import Preloader from './Preloader';
+ 
 import ScheduleModal from './ScheduleModal'; // adjust the path
+import Header from './Header';
 
 
 
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import {
-  MessageCircle, Menu, X, ChevronRight, Phone, MapPin, Clock, Users,
+  MessageCircle, ChevronRight, Phone, MapPin, Clock, Users,
   Trophy, Target, Shield, Cloud, Settings, Building, ShoppingCart, Stethoscope, Smartphone
 } from 'lucide-react';
 import { CustomPrevArrow, CustomNextArrow } from './CustomArrow'; // adjust path if needed
 
 const HomePage = () => {
   const navigate = useNavigate(); // ✅ must be inside
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['home', 'about', 'services', 'industries', 'contact'];
-      const scrollPosition = window.scrollY + 100;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const height = element.offsetHeight;
-
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [formError, setFormError] = useState(false);
-
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
-  };
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -60,6 +28,12 @@ const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
 
 
+  const scrollToSection = (id: string) => {
+  const section = document.getElementById(id);
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth" });
+  }
+};
 
 
   const heroImages = [
@@ -139,7 +113,7 @@ const HomePage = () => {
       name: "Retail & Consumer Services",
       icon: <ShoppingCart className="w-12 h-12" />,
       description: "Customer-centric solutions for retail excellence",
-      image: "/images/industries/retail.jpg"
+      image: "/images/industries/retail.webp"
     },
     {
       name: "Healthcare & Life Sciences",
@@ -155,97 +129,12 @@ const HomePage = () => {
     }
   ];
 
-  if (isLoading) {
-    return <Preloader onFinish={() => setIsLoading(false)} />;
-  }
+  
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <button
-                onClick={() => scrollToSection('home')}
-                className="text-3xl sm:text-4xl font-extrabold tracking-wide text-navy-900 focus:outline-none"
-              >
-                <span className="text-blue-600">WEXX</span>{' '}
-                <span className="text-base font-semibold text-gray-800">TECHNOLOGIES</span>
-              </button>
+      <Header />
 
-
-            </div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex space-x-8">
-              {['home', 'about', 'services', 'industries', 'contact'].map((item) => {
-                const label =
-                  item === 'contact'
-                    ? 'Contact Us'
-                    : item.charAt(0).toUpperCase() + item.slice(1).replace('-', ' ');
-
-                return (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item)}
-                    className="relative group flex items-center gap-1 font-medium transition-all duration-300 text-gray-700 hover:text-blue-600"
-                  >
-                    {/* Hover dot */}
-                    <span className="absolute -left-4 w-2 h-2 rounded-full bg-blue-600 transform scale-50 opacity-0 -translate-x-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100"></span>
-
-                    {item === 'contact' ? (
-                      <span className="flex items-center gap-2">
-                        {label}
-                        <motion.span
-                          className="inline-block"
-                          animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
-                          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                        >
-                          <Phone className="w-6 h-6 text-blue-500" />
-                        </motion.span>
-                      </span>
-                    ) : (
-                      label
-                    )}
-                  </button>
-                );
-              })}
-            </nav>
-
-
-
-
-
-            {/* Mobile menu button */}
-            <div className="lg:hidden">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-gray-700 hover:text-blue-600 transition-colors duration-200"
-              >
-                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-gray-200">
-            <div className="px-4 py-2 space-y-1">
-              {['home', 'about', 'services', 'industries', 'contact'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
-                  className="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200 capitalize"
-                >
-                  {item === 'home' ? 'Home' : item.replace('-', ' ')}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-      </header>
 
       {/* Hero Section */}
       <section id="home" className="pt-16 min-h-screen relative text-white">
@@ -366,10 +255,14 @@ const HomePage = () => {
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-gray-700 leading-relaxed font-rubik">Our Mission</h3>
               <p className="text-gray-700 leading-relaxed">
-                At WEXX TECHNOLOGIES, we are digital change-makers dedicated to designing future-state solutions that help businesses evolve with agility and impact. Based in Accra, Ghana, we serve enterprise clients across Africa and beyond with customized IT services, digital transformation consulting, and comprehensive cloud and application services.
+                At WEXX TECHNOLOGIES, we are digital change-makers dedicated to designing future-state 
+                solutions that help businesses evolve with agility and impact. Based in Accra, Ghana, 
+                we serve enterprise clients across the country with customized IT services, digital 
+                transformation consulting, and comprehensive cloud and application services.
               </p>
               <p className="text-gray-700 leading-relaxed">
-                Our team of high-level professionals combines deep technical expertise with strategic business insight to deliver solutions that drive real transformation and sustainable growth.
+                Our team of high-level professionals combines deep technical expertise with strategic 
+                business insight to deliver solutions that drive real transformation and sustainable growth.
               </p>
             </div>
 
@@ -411,6 +304,7 @@ const HomePage = () => {
           <div className="text-center mt-12">
             <button
               onClick={() => navigate('/about')}
+
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300"
             >
               Learn More About Us
@@ -456,15 +350,18 @@ const HomePage = () => {
             {services.map((service, index) => (
               <div
                 key={index}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
+                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden flex flex-col"
               >
+                {/* Header */}
                 <div className={`${service.color} p-6 text-white`}>
                   <div className="flex items-center space-x-3 mb-4">
                     {service.icon}
                     <h3 className="text-xl font-bold">{service.category}</h3>
                   </div>
                 </div>
-                <div className="p-6">
+
+                {/* Body with services + Learn More */}
+                <div className="p-6 flex flex-col justify-between flex-grow">
                   <ul className="space-y-3">
                     {service.services.map((item, itemIndex) => (
                       <li key={itemIndex} className="flex items-start space-x-3">
@@ -473,10 +370,21 @@ const HomePage = () => {
                       </li>
                     ))}
                   </ul>
+
+                  {/* Learn More pinned at bottom */}
+                  <p
+                    onClick={() => navigate(`/services/${index}`)} 
+                    className="mt-6 w-fit px-4 py-2 border-2 border-teal-600 text-teal-600 font-medium rounded-lg cursor-pointer hover:bg-teal-600 hover:text-white transition"
+                  >
+                    Learn More →
+                  </p>
+
+
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
@@ -579,6 +487,7 @@ const HomePage = () => {
             {/* Contact Form */}
             <div className="bg-gray-800 rounded-2xl p-8">
               <h3 className="text-2xl font-bold mb-6">Send us a Message</h3>
+              <p className='text-lg leading-relaxed text-gray-400 mb-6'>We'll need just a few details from you, and one of our specialists will be in touch as soon as possible.</p>
               <form
                 onSubmit={async (e) => {
                   e.preventDefault(); // prevent page refresh

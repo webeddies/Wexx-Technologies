@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Header from "./Header";
 
 const AboutPage = () => {
   // Smooth scroll to top
@@ -8,7 +9,10 @@ const AboutPage = () => {
   }, []);
 
   return (
-    <motion.div
+    <div className="bg-white text-gray-800">
+      <Header />
+
+      <motion.div
       className="min-h-screen bg-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -84,6 +88,10 @@ const AboutPage = () => {
         </div>
       </div>
     </motion.div>
+
+    </div>   
+      
+    
   );
 };
 
