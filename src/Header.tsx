@@ -2,10 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Phone, Menu, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,13 +31,39 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavigation = (item: string) => {
+    if (item === "home") {
+      // Always navigate to homepage for "home"
+      if (window.location.pathname !== "/") {
+        navigate("/");
+      } else {
+        const el = document.getElementById(item);
+        el?.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // For other nav items, only navigate to homepage if not already there
+      if (window.location.pathname !== "/") {
+        navigate("/");
+        setTimeout(() => {
+          const el = document.getElementById(item);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 300);
+      } else {
+        const el = document.getElementById(item);
+        el?.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <button
-            onClick={() => (window.location.href = "/")}
+            onClick={() => navigate("/")}
             className="text-3xl sm:text-4xl font-extrabold tracking-wide text-navy-900 focus:outline-none"
           >
             <span className="text-blue-600">WEXX</span>{" "}
@@ -53,17 +81,9 @@ const Header = () => {
               return (
                 <button
                   key={item}
-                  onClick={() => {
-                    if (window.location.pathname !== "/") {
-                      window.location.href = `/#${item}`;
-                    } else {
-                      const el = document.getElementById(item);
-                      el?.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
+                  onClick={() => handleNavigation(item)}
                   className="relative group flex items-center gap-1 font-medium transition-all duration-300 text-gray-700 hover:text-blue-600"
                 >
-
                   {/* Hover dot */}
                   <span className="absolute -left-4 w-2 h-2 rounded-full bg-blue-600 transform scale-50 opacity-0 -translate-x-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100"></span>
                   {item === "contact" ? (
@@ -105,12 +125,7 @@ const Header = () => {
               <button
                 key={item}
                 onClick={() => {
-                  if (window.location.pathname !== "/") {
-                    window.location.href = `/#${item}`;
-                  } else {
-                    const el = document.getElementById(item);
-                    el?.scrollIntoView({ behavior: "smooth" });
-                  }
+                  handleNavigation(item);
                   setIsMenuOpen(false);
                 }}
                 className="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200 capitalize"
