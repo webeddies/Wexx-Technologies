@@ -24,7 +24,7 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose }) => {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch("https://formspree.io/f/xanbbyyw", {
+      const response = await fetch("https://formspree.io/f/xrbabzay", {
         method: "POST",
         body: formData,
         headers: {

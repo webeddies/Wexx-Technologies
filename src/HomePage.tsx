@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
- 
+
 import ScheduleModal from './ScheduleModal'; // adjust the path
 import Header from './Header';
 
@@ -9,7 +9,7 @@ import Header from './Header';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import {
-  MessageCircle, ChevronRight, Phone, MapPin, Clock, Users,
+  MessageCircle, ChevronRight, Phone, Mail, MapPin, Clock, Users,
   Trophy, Target, Shield, Cloud, Settings, Building, ShoppingCart, Stethoscope, Smartphone
 } from 'lucide-react';
 import { CustomPrevArrow, CustomNextArrow } from './CustomArrow'; // adjust path if needed
@@ -29,11 +29,11 @@ const HomePage = () => {
 
 
   const scrollToSection = (id: string) => {
-  const section = document.getElementById(id);
-  if (section) {
-    section.scrollIntoView({ behavior: "smooth" });
-  }
-};
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
 
   const heroImages = [
@@ -129,7 +129,7 @@ const HomePage = () => {
     }
   ];
 
-  
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -255,13 +255,13 @@ const HomePage = () => {
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-gray-700 leading-relaxed font-rubik">Our Mission</h3>
               <p className="text-gray-700 leading-relaxed">
-                At WEXX TECHNOLOGIES, we are digital change-makers dedicated to designing future-state 
-                solutions that help businesses evolve with agility and impact. Based in Accra, Ghana, 
-                we serve enterprise clients across the country with customized IT services, digital 
+                At WEXX TECHNOLOGIES, we are digital change-makers dedicated to designing future-state
+                solutions that help businesses evolve with agility and impact. Based in Accra, Ghana,
+                we serve enterprise clients across the country with customized IT services, digital
                 transformation consulting, and comprehensive cloud and application services.
               </p>
               <p className="text-gray-700 leading-relaxed">
-                Our team of high-level professionals combines deep technical expertise with strategic 
+                Our team of high-level professionals combines deep technical expertise with strategic
                 business insight to deliver solutions that drive real transformation and sustainable growth.
               </p>
             </div>
@@ -373,7 +373,7 @@ const HomePage = () => {
 
                   {/* Learn More pinned at bottom */}
                   <p
-                    onClick={() => navigate(`/services/${index}`)} 
+                    onClick={() => navigate(`/services/${index}`)}
                     className="mt-6 w-fit px-4 py-2 border-2 border-teal-600 text-teal-600 font-medium rounded-lg cursor-pointer hover:bg-teal-600 hover:text-white transition"
                   >
                     Learn More →
@@ -448,9 +448,22 @@ const HomePage = () => {
                           0209008393
                         </a>
                       </div>
-
                     </div>
                   </div>
+
+                  <div className="flex items-center space-x-3">
+                    <Mail className="w-6 h-6 text-blue-400" />
+                    <div>
+                      <p className="font-semibold">Email</p>
+                      <div className="text-gray-400 space-x-2">
+                        <a href="mailto:wexxtechnologies@gmail.com" className=" hover:underline break-all hover:text-white transition-colors duration-300">
+                          wexxtechnologies@gmail.com
+                        </a>
+
+                      </div>
+                    </div>
+                  </div>
+
                   <div className="flex items-center space-x-3">
                     <MapPin className="w-6 h-6 text-blue-400" />
                     <div>
@@ -507,7 +520,7 @@ const HomePage = () => {
                   setIsSending(true);
 
                   try {
-                    const res = await fetch("https://formspree.io/f/xanbbyyw", {
+                    const res = await fetch("https://formspree.io/f/movnvanj", {
                       method: "POST",
                       headers: { Accept: "application/json" },
                       body: new FormData(e.target as HTMLFormElement),
@@ -686,6 +699,12 @@ const HomePage = () => {
                 <li>
                   <a href="tel:+233209008393" className="hover:text-white transition-colors duration-300">
                     0209008393
+                  </a>
+                </li>
+
+                <li>
+                  <a href="mailto:wexxtechnologies@gmail.com" className=" hover:underline break-all hover:text-white transition-colors duration-300">
+                    wexxtechnologies@gmail.com
                   </a>
                 </li>
                 <li>Taifa, Accra</li>
