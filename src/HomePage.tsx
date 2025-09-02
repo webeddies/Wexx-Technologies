@@ -468,7 +468,7 @@ const HomePage = () => {
                     <MapPin className="w-6 h-6 text-blue-400" />
                     <div>
                       <p className="font-semibold">Office Address</p>
-                      <p className="text-gray-400">TA/D 262 Off Star Clinic Road, Taifa, Accra</p>
+                      <p className="text-gray-400">Prince Okai street, New Achimota, Accra</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
@@ -707,7 +707,7 @@ const HomePage = () => {
                     wexxtechnologies@gmail.com
                   </a>
                 </li>
-                <li>Taifa, Accra</li>
+                <li>New Achimota, Accra</li>
               </ul>
 
             </div>
